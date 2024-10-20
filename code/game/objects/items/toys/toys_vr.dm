@@ -382,6 +382,25 @@
 		slot_r_hand_str = 'icons/mob/items/righthand.dmi',
 		)
 
+/obj/item/toy/plushie/shark/fish
+	name = "fish"
+	desc = "The fish. Exercise caution while use, undocumented causes of recursive nuclear delamination of reality was detected. "
+	icon = 'icons/obj/toy_vr.dmi'
+	icon_state = "blahaj2"
+	item_state = "blahaj2"
+	var/cooldown = 0
+
+/obj/item/toy/plushie/shark/fish/attack_self(mob/user as mob)
+	if(!cooldown)
+		playsound(user, 'sound/misc/fish.ogg', 10, 0)
+		src.visible_message(span_danger("Fish"))
+		cooldown = 1
+		addtimer(CALLBACK(src, PROC_REF(cooldownreset)), 50)
+	return ..()
+
+/obj/item/toy/plushie/shark/fish/proc/cooldownreset()
+	cooldown = 0
+
 /*
  * Pet rocks
  */
